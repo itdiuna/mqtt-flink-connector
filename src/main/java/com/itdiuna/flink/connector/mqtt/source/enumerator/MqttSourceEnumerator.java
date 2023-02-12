@@ -65,6 +65,9 @@ public class MqttSourceEnumerator implements SplitEnumerator<MqttTopicSplit, Mqt
     }
 
     private void handleTopicChanges(TopicChanges topicChanges) {
+        if (topicChanges.newTopics.isEmpty()) {
+            return;
+        }
         logger.info("New topics: {}", topicChanges.newTopics);
 
         for (String newTopic : topicChanges.newTopics) {

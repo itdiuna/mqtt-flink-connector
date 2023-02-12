@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.*;
 
 public class MqttTopicSplitReader implements SplitReader<MqttMessage, MqttTopicSplit> {
@@ -35,6 +36,7 @@ public class MqttTopicSplitReader implements SplitReader<MqttMessage, MqttTopicS
             client.setCallback(new Callback());
             MqttConnectionOptions options = new MqttConnectionOptions();
             options.setCleanStart(false);
+            options.setSessionExpiryInterval(Duration.ofDays(7).getSeconds());
             options.setKeepAliveInterval(1200);
             logger.info("Connecting to the broker now...");
             client.connect(options);
